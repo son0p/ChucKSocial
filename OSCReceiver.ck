@@ -1,12 +1,14 @@
-// ATENCION: no es muy preciso, no sirve para sincronizar percusión
+
+
+
+// ATENCION: no es preciso, no sirve para sincronizar percusiones
 
 // crea nuestro receptor de OSC
 OscRecv recv;
 // usa el puerto 6449
 6449 => recv.port;
-// inicia a escuchar
+// inicia la escucha
 recv.listen();
-
 // crea una dirección en el receptor y asigna a una variable
 recv.event( "/metronomo, i" ) @=> OscEvent oe;
 
@@ -15,11 +17,10 @@ while ( true )
 {
 	// mide el tiempo
 	now => time wait;
-
 	// espera la llegada de un evento
     oe => now;
 
-    // agarra el sigiente mensaje de la fila
+	// agarra el siguiente mensaje de la fila
     while ( oe.nextMsg() != 0 )
     {
 		oe.getInt() => int i;
