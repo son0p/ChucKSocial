@@ -1,3 +1,5 @@
+// ATENCION: no es muy preciso, no sirve para sincronizar percusión
+
 // crea nuestro receptor de OSC
 OscRecv recv;
 // usa el puerto 6449
