@@ -1,6 +1,3 @@
-
-
-
 // ATENCION: no es preciso, no sirve para sincronizar percusiones
 
 // crea nuestro receptor de OSC
