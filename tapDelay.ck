@@ -10,18 +10,22 @@ Event trigger;
 
 // Inicializa variables
 // 500.0 => float lapsAvrg; // inicializa el promedio por si no hay taps 
-500.0 => float lapTime;
+
 
 // crea un array para sacar el promedio de los taps
 float laps[4];
 
 
+500.0 => float lapTime;
 
+0 => int count;
 
 while ( true )
 {
+
 	// mide el tiempo
 	now => time wait;
+	
 
 	// espera la llegada de un evento
 	kb => now;	
@@ -31,26 +35,42 @@ while ( true )
  
 	if (number == 116)
 	{
-		now => time lap;
+		now => time lap;	
 		// => d.delay();
 		
 		((60 * 1000)/((lap-wait)/ms)) => float bpmTap;
 
 		// captura el tiempo entre tap y tap
-		(lap-wait)/ms => float lapTime;
+		(lap-wait)/ms =>  lapTime;
 
 		// print
 		<<< "BPM:", bpmTap, ":: Delay ::", lapTime >>>;
+	
 	}
 	else
 	{
 		<<< "Tap on key t for tap tempo" >>>;	
 	}
-	400 => lapTime;
-	lapTime => float lapTime1;
-	(lapTime1 + lapTime)/2 => float lapTime2;
-	(lapTime2 + lapTime1 + lapTime)/3 => float lapTime3;
-	(lapTime3 + lapTime2 + lapTime1 + lapTime)/4 => float lapsAvrg;
-	<<<  "Promedio ->", lapsAvrg >>>;
+
+	// promedio
 	
+	// lapTime  =>  float lapTime1;
+	// (lapTime1 + lapTime) => float lapTime2;
+	// (lapTime2 + lapTime1 + lapTime) => float lapTime3;
+	// (lapTime3 + lapTime2 + lapTime1 + lapTime)/8 => float lapsAvrg;
+	// <<<  "P	romedio ->", lapsAvrg >>>;
+
+	// dirty average : erroneous first average
+	count++;
+	count % 4 => int i;
+	lapTime => laps[i];
+	float sum;
+	if (i == 3)
+	{
+		for(0 => int ii; ii < laps.cap(); ii++)
+		{
+			sum + laps[ii] => sum;
+		}
+		<<<"sum", sum/4 >>>;
+	}
 }
